@@ -1,0 +1,36 @@
+2023-10-02 10:07:45.401 +07 [12220] ERROR:  could not serialize access due to concurrent update
+2023-10-02 10:07:45.401 +07 [12220] STATEMENT:  
+	            SELECT *, cron_name->>'en_US' as cron_name
+	            FROM ir_cron
+	            WHERE active = true
+	              AND numbercall != 0
+	              AND (nextcall <= (now() at time zone 'UTC')
+	                OR EXISTS (
+	                    SELECT cron_id
+	                    FROM ir_cron_trigger
+	                    WHERE call_at <= (now() at time zone 'UTC')
+	                      AND cron_id = ir_cron.id
+	                )
+	              )
+	              AND id in (21)
+	            ORDER BY priority
+	            LIMIT 1 FOR NO KEY UPDATE SKIP LOCKED
+	        
+2023-10-02 10:09:32.381 +07 [12220] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.388 +07 [9272] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.392 +07 [9628] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.394 +07 [5076] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.394 +07 [9448] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.394 +07 [10428] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.395 +07 [8908] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.396 +07 [18968] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-02 10:09:32.397 +07 [3104] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	

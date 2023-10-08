@@ -1,0 +1,89 @@
+2023-10-08 01:07:48.401 +07 [12084] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.402 +07 [7444] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.402 +07 [8648] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.402 +07 [16328] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.403 +07 [15744] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.411 +07 [13212] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.411 +07 [11316] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.411 +07 [18336] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.411 +07 [6368] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.412 +07 [19472] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.413 +07 [9912] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 01:07:48.413 +07 [6076] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 08:55:39.870 +07 [8120] ERROR:  could not serialize access due to concurrent update
+2023-10-08 08:55:39.870 +07 [8120] STATEMENT:  
+	                WITH visitor AS (
+	                    
+	            INSERT INTO website_visitor (
+	                partner_id, access_token, last_connection_datetime, visit_count, lang_id,
+	                website_id, timezone, write_uid, create_uid, write_date, create_date, country_id)
+	            VALUES (
+	                3, 3, now() at time zone 'UTC', 1, 1,
+	                1, 'Asia/Ho_Chi_Minh', 2, 2,
+	                now() at time zone 'UTC', now() at time zone 'UTC', (
+	                    SELECT id FROM res_country WHERE code = NULL
+	                )
+	            )
+	            ON CONFLICT (access_token)
+	            DO UPDATE SET
+	                last_connection_datetime=excluded.last_connection_datetime,
+	                visit_count = CASE WHEN website_visitor.last_connection_datetime < NOW() AT TIME ZONE 'UTC' - INTERVAL '8 hours'
+	                                    THEN website_visitor.visit_count + 1
+	                                    ELSE website_visitor.visit_count
+	                                END
+	            RETURNING id, CASE WHEN create_date = now() at time zone 'UTC' THEN 'inserted' ELSE 'updated' END AS upsert
+	        , 'http://localhost:8069/' AS url, 4 AS page_id
+	                ), track AS (
+	                    INSERT INTO website_track (visitor_id, url, page_id, visit_datetime)
+	                    SELECT id, url, page_id::integer, now() at time zone 'UTC' FROM visitor
+	                )
+	                SELECT id, upsert from visitor;
+	            
+2023-10-08 09:03:37.219 +07 [16856] ERROR:  could not serialize access due to concurrent update
+2023-10-08 09:03:37.219 +07 [16856] STATEMENT:  UPDATE "sale_order" SET "amount_total" = '1800', "amount_unpaid" = '1800', "amount_untaxed" = '1800', "write_date" = '2023-10-08T02:03:37.054614'::timestamp, "write_uid" = 2 WHERE id IN (52)
+2023-10-08 09:29:33.567 +07 [13384] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.568 +07 [8120] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.568 +07 [16856] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.568 +07 [14236] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.577 +07 [8940] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.578 +07 [20032] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.578 +07 [19644] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.578 +07 [8508] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 09:29:33.579 +07 [11448] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.838 +07 [14364] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.843 +07 [20464] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.844 +07 [18760] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.844 +07 [10304] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.844 +07 [17308] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.845 +07 [11252] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.846 +07 [2944] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-10-08 10:55:28.847 +07 [6868] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	

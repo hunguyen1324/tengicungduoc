@@ -1,0 +1,8 @@
+2023-08-18 19:10:28.903 +07 [10068] LOG:  database system was shut down at 2023-08-18 19:10:25 +07
+2023-08-18 19:10:28.946 +07 [8836] LOG:  database system is ready to accept connections
+2023-08-18 20:56:45.185 +07 [1904] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-08-18 21:11:48.001 +07 [5188] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2023-08-18 21:11:48.001 +07 [4352] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	

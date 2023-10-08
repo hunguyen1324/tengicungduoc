@@ -1,0 +1,74 @@
+2023-10-08 00:43:06.578 +07 [12084] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:43:06.578 +07 [12084] STATEMENT:  DELETE FROM ir_attachment WHERE id IN (
+	            SELECT id FROM ir_attachment WHERE id in (1445) FOR NO KEY UPDATE SKIP LOCKED
+	        )
+2023-10-08 00:43:16.520 +07 [8648] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:43:16.520 +07 [8648] STATEMENT:  DELETE FROM ir_attachment WHERE id IN (
+	            SELECT id FROM ir_attachment WHERE id in (1443, 1442) FOR NO KEY UPDATE SKIP LOCKED
+	        )
+2023-10-08 00:43:23.316 +07 [12084] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:43:23.316 +07 [12084] STATEMENT:  DELETE FROM ir_attachment WHERE id IN (
+	            SELECT id FROM ir_attachment WHERE id in (1443, 1442) FOR NO KEY UPDATE SKIP LOCKED
+	        )
+2023-10-08 00:43:24.276 +07 [16328] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:43:24.276 +07 [16328] STATEMENT:  
+	                WITH visitor AS (
+	                    
+	            INSERT INTO website_visitor (
+	                partner_id, access_token, last_connection_datetime, visit_count, lang_id,
+	                website_id, timezone, write_uid, create_uid, write_date, create_date, country_id)
+	            VALUES (
+	                3, 3, now() at time zone 'UTC', 1, 1,
+	                1, 'Asia/Bangkok', 2, 2,
+	                now() at time zone 'UTC', now() at time zone 'UTC', (
+	                    SELECT id FROM res_country WHERE code = NULL
+	                )
+	            )
+	            ON CONFLICT (access_token)
+	            DO UPDATE SET
+	                last_connection_datetime=excluded.last_connection_datetime,
+	                visit_count = CASE WHEN website_visitor.last_connection_datetime < NOW() AT TIME ZONE 'UTC' - INTERVAL '8 hours'
+	                                    THEN website_visitor.visit_count + 1
+	                                    ELSE website_visitor.visit_count
+	                                END
+	            RETURNING id, CASE WHEN create_date = now() at time zone 'UTC' THEN 'inserted' ELSE 'updated' END AS upsert
+	        , 'http://localhost:8069/thuong-hieu' AS url, 13 AS page_id
+	                ), track AS (
+	                    INSERT INTO website_track (visitor_id, url, page_id, visit_datetime)
+	                    SELECT id, url, page_id::integer, now() at time zone 'UTC' FROM visitor
+	                )
+	                SELECT id, upsert from visitor;
+	            
+2023-10-08 00:43:30.394 +07 [15744] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:43:30.394 +07 [15744] STATEMENT:  DELETE FROM ir_attachment WHERE id IN (
+	            SELECT id FROM ir_attachment WHERE id in (1443, 1442) FOR NO KEY UPDATE SKIP LOCKED
+	        )
+2023-10-08 00:48:14.081 +07 [7444] ERROR:  could not serialize access due to concurrent update
+2023-10-08 00:48:14.081 +07 [7444] STATEMENT:  
+	                WITH visitor AS (
+	                    
+	            INSERT INTO website_visitor (
+	                partner_id, access_token, last_connection_datetime, visit_count, lang_id,
+	                website_id, timezone, write_uid, create_uid, write_date, create_date, country_id)
+	            VALUES (
+	                3, 3, now() at time zone 'UTC', 1, 1,
+	                1, 'Asia/Bangkok', 2, 2,
+	                now() at time zone 'UTC', now() at time zone 'UTC', (
+	                    SELECT id FROM res_country WHERE code = NULL
+	                )
+	            )
+	            ON CONFLICT (access_token)
+	            DO UPDATE SET
+	                last_connection_datetime=excluded.last_connection_datetime,
+	                visit_count = CASE WHEN website_visitor.last_connection_datetime < NOW() AT TIME ZONE 'UTC' - INTERVAL '8 hours'
+	                                    THEN website_visitor.visit_count + 1
+	                                    ELSE website_visitor.visit_count
+	                                END
+	            RETURNING id, CASE WHEN create_date = now() at time zone 'UTC' THEN 'inserted' ELSE 'updated' END AS upsert
+	        , 'http://localhost:8069/' AS url, 4 AS page_id
+	                ), track AS (
+	                    INSERT INTO website_track (visitor_id, url, page_id, visit_datetime)
+	                    SELECT id, url, page_id::integer, now() at time zone 'UTC' FROM visitor
+	                )
+	                SELECT id, upsert from visitor;
+	            

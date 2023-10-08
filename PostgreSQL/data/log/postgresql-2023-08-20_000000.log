@@ -1,0 +1,5 @@
+2023-08-20 23:34:26.672 +07 [8836] LOG:  aborting any active transactions
+2023-08-20 23:34:26.679 +07 [3064] ERROR:  canceling statement due to user request
+2023-08-20 23:34:26.706 +07 [8836] LOG:  background worker "logical replication launcher" (PID 3064) exited with exit code 1
+2023-08-20 23:34:26.723 +07 [9552] LOG:  shutting down
+2023-08-20 23:34:26.805 +07 [8836] LOG:  database system is shut down
