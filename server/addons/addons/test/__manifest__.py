@@ -1,6 +1,6 @@
 {
 
-    'name': 'test_model sỹ đần',
+    'name': 'test_model ',
     'version': '1.0',
     'summary': 'test Customization',
     'sequence': 5,
